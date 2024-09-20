@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="es"><head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elije tu Realimulación</title>
@@ -36,9 +38,11 @@
         button:hover {
             background-color: #0056b3;
         }
-    </style></head><body>
+    </style>
+</head>
+<body>
     <div id="game-container">
-        <img id="game-image" src="images/inicio.jpg" alt="Capítulo 1">
+        <img id="game-image" src="https://raw.githubusercontent.com/Machape94/realimulacion/main/images/inicio.jpg" alt="Capítulo 1">
         <div id="game-text">
             <p>Te despiertas en tu habitación, pero algo se siente diferente. Al mirar a tu alrededor, notas que tu computadora está encendida y muestra un mensaje parpadeante: “¿Estás listo para la aventura?”</p>
         </div>
@@ -53,7 +57,7 @@
         const capitulos = {
             1: {
                 texto: "Te despiertas en tu habitación, pero algo se siente diferente. Al mirar a tu alrededor, notas que tu computadora está encendida y muestra un mensaje parpadeante: “¿Estás listo para la aventura?”",
-                imagen: "images/inicio.jpg",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/inicio.jpg",
                 opciones: [
                     { texto: "Aceptar la invitación y hacer clic en el mensaje.", siguiente: 2 },
                     { texto: "Ignorar el mensaje y salir de la habitación.", siguiente: 3 }
@@ -61,7 +65,7 @@
             },
             2: {
                 texto: "De repente, te encuentras en un mundo digital lleno de colores vibrantes y criaturas extrañas. Un personaje virtual se te acerca y dice: “Bienvenido, jugador. Tu misión es encontrar la llave que conecta este mundo con la realidad.”",
-                imagen: "images/mundo_virtual.jpg",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/mundo_virtual.jpg",
                 opciones: [
                     { texto: "Preguntar al personaje virtual dónde encontrar la llave.", siguiente: 4 },
                     { texto: "Explorar el mundo por tu cuenta.", siguiente: 5 }
@@ -69,7 +73,7 @@
             },
             3: {
                 texto: "Decides ignorar el mensaje y salir de tu habitación. Afuera, todo parece normal, pero sientes una extraña desconexión con tu entorno. Te preguntas si deberías haber aceptado la invitación.",
-                imagen: "images/realidad.jpg",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/realidad.jpg",
                 opciones: [
                     { texto: "Volver a tu habitación y hacer clic en el mensaje.", siguiente: 2 },
                     { texto: "Continuar con tu día como de costumbre. Fin del juego.", siguiente: null }
@@ -77,7 +81,7 @@
             },
             4: {
                 texto: "El personaje virtual te dice que la llave está escondida en el Bosque de los Recuerdos, un lugar donde los límites entre la memoria y la realidad se desvanecen.",
-                imagen: "images/busqueda.jpg",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/busqueda.jpg",
                 opciones: [
                     { texto: "Ir al Bosque de los Recuerdos.", siguiente: 6 },
                     { texto: "Buscar pistas en otro lugar.", siguiente: 7 }
@@ -85,7 +89,7 @@
             },
             5: {
                 texto: "Decides explorar el mundo por tu cuenta. Encuentras varios objetos interesantes, pero ninguno parece ser la llave. Sin embargo, descubres un mapa que podría ayudarte.",
-                imagen: "images/exploracion.jpg",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/exploracion.jpg",
                 opciones: [
                     { texto: "Seguir el mapa.", siguiente: 6 },
                     { texto: "Ignorar el mapa y seguir explorando.", siguiente: 7 }
@@ -93,7 +97,7 @@
             },
             6: {
                 texto: "En el Bosque de los Recuerdos, te enfrentas a visiones de tu pasado y futuros posibles. Finalmente, encuentras la llave escondida en un árbol antiguo.",
-                imagen: "images/bosque.jpg",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/bosque.jpg",
                 opciones: [
                     { texto: "Usar la llave para regresar a la realidad.", siguiente: 8 },
                     { texto: "Quedarte en el mundo virtual. Fin del juego.", siguiente: null }
@@ -101,14 +105,14 @@
             },
             7: {
                 texto: "Te pierdes en el vasto mundo virtual, sin encontrar la llave. Te das cuenta de que quizás deberías haber seguido las pistas más de cerca.",
-                imagen: "images/confusion.jpg",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/confusion.jpg",
                 opciones: [
                     { texto: "Volver al personaje virtual para pedir ayuda.", siguiente: 4 }
                 ]
             },
             8: {
                 texto: "Usas la llave y sientes una extraña sensación de vértigo. De repente, te encuentras de vuelta en tu habitación, mirando la pantalla de tu computadora. Pero algo es diferente.",
-                imagen: "images/revelacion.jpg",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/revelacion.jpg",
                 opciones: [
                     { texto: "Tocar la pantalla para comprobar si es real. Fin del juego.", siguiente: null },
                     { texto: "Cerrar la computadora y alejarte. Fin del juego.", siguiente: null }
@@ -134,4 +138,6 @@
                 document.getElementById('game-options').innerHTML = "";
             }
         }
-    </script></body></html>
+    </script>
+</body>
+</html>
