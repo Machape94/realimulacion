@@ -25,10 +25,14 @@
             max-width: 100%;
             height: auto;
             border-radius: 8px;
+            opacity: 1;
+            transition: opacity 0.8s ease;
         }
 
         #game-text {
             margin: 20px 0;
+            opacity: 1;
+            transition: opacity 0.8s ease;
         }
 
         button {
@@ -127,19 +131,30 @@
             }
         };
 
-        // Función para cambiar de capítulo
+        // Función para cambiar de capítulo con transición
         function irACapitulo(numeroCapitulo) {
             const capitulo = capitulos[numeroCapitulo];
 
             if (capitulo) {
-                document.getElementById('game-text').innerHTML = `<p>${capitulo.texto}</p>`;
-                document.getElementById('game-image').src = capitulo.imagen;
+                // Apagar el contenido actual
+                document.getElementById('game-text').style.opacity = 0;
+                document.getElementById('game-image').style.opacity = 0;
 
-                const opcionesHTML = capitulo.opciones.map(opcion => {
-                    return `<button onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`;
-                }).join('');
+                setTimeout(() => {
+                    // Cambiar el contenido una vez que la opacidad es 0
+                    document.getElementById('game-text').innerHTML = `<p>${capitulo.texto}</p>`;
+                    document.getElementById('game-image').src = capitulo.imagen;
 
-                document.getElementById('game-options').innerHTML = opcionesHTML;
+                    const opcionesHTML = capitulo.opciones.map(opcion => {
+                        return `<button onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`;
+                    }).join('');
+
+                    document.getElementById('game-options').innerHTML = opcionesHTML;
+
+                    // Encender el contenido con la nueva opacidad
+                    document.getElementById('game-text').style.opacity = 1;
+                    document.getElementById('game-image').style.opacity = 1;
+                }, 800); // Espera a que la opacidad llegue a 0 antes de cambiar
             } else {
                 document.getElementById('game-text').innerHTML = "<p>Fin del juego.</p>";
                 document.getElementById('game-options').innerHTML = "";
