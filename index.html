@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
             text-align: center;
             background-color: #f4f4f4;
         }
+
         #game-container {
             max-width: 600px;
             margin: auto;
@@ -18,14 +20,17 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         #game-image {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
         }
+
         #game-text {
             margin: 20px 0;
         }
+
         button {
             padding: 10px 20px;
             margin: 10px;
@@ -35,11 +40,13 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
+
 <body>
     <div id="game-container">
         <img id="game-image" src="https://raw.githubusercontent.com/Machape94/realimulacion/main/images/inicio.jpg" alt="Capítulo 1">
@@ -64,11 +71,11 @@
                 ]
             },
             2: {
-                texto: "De repente, te encuentras en un mundo digital lleno de colores vibrantes y criaturas extrañas. Un personaje virtual se te acerca y dice: “Bienvenido, jugador. Tu misión es encontrar la llave que conecta este mundo con la realidad.”",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/mundo_virtual.jpg",
+                texto: "De repente, te encuentras en una escuela de artes visuales. Los pasillos están llenos de obras creativas y estudiantes trabajando. Un instructor virtual se te acerca y te dice: “Bienvenido. Tu misión es encontrar el pincel maestro que puede dibujar la línea entre la realidad y la imaginación.”",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/escuela_arte.jpg",
                 opciones: [
-                    { texto: "Preguntar al personaje virtual dónde encontrar la llave.", siguiente: 4 },
-                    { texto: "Explorar el mundo por tu cuenta.", siguiente: 5 }
+                    { texto: "Preguntar al instructor dónde encontrar el pincel maestro.", siguiente: 4 },
+                    { texto: "Explorar la escuela por tu cuenta.", siguiente: 5 }
                 ]
             },
             3: {
@@ -80,63 +87,43 @@
                 ]
             },
             4: {
-                texto: "El personaje virtual te dice que la llave está escondida en el Bosque de los Recuerdos, un lugar donde los límites entre la memoria y la realidad se desvanecen.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/busqueda.jpg",
+                texto: "El instructor te dice que el pincel maestro está escondido en el estudio de arte experimental, un lugar donde las barreras entre la creatividad y la realidad se desvanecen.",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/estudio_arte.jpg",
                 opciones: [
-                    { texto: "Ir al Bosque de los Recuerdos.", siguiente: 6 },
-                    { texto: "Buscar pistas en otro lugar.", siguiente: 7 }
+                    { texto: "Ir al estudio de arte experimental.", siguiente: 6 },
+                    { texto: "Buscar pistas en otro lugar de la escuela.", siguiente: 7 }
                 ]
             },
             5: {
-                texto: "Decides explorar el mundo por tu cuenta. Encuentras varios objetos interesantes, pero ninguno parece ser la llave. Sin embargo, descubres un mapa que podría ayudarte.",
+                texto: "Decides explorar la escuela por tu cuenta. Encuentras varios materiales interesantes, pero ninguno parece ser el pincel maestro. Sin embargo, descubres un boceto que podría ayudarte.",
                 imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/exploracion.jpg",
                 opciones: [
-                    { texto: "Seguir el mapa.", siguiente: 6 },
-                    { texto: "Ignorar el mapa y seguir explorando.", siguiente: 7 }
+                    { texto: "Seguir las pistas del boceto.", siguiente: 6 },
+                    { texto: "Ignorar el boceto y seguir explorando.", siguiente: 7 }
                 ]
             },
             6: {
-                texto: "En el Bosque de los Recuerdos, te enfrentas a visiones de tu pasado y futuros posibles. Finalmente, encuentras la llave escondida en un árbol antiguo.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/bosque.jpg",
+                texto: "En el estudio de arte experimental, te enfrentas a visiones de tus propias creaciones y futuros posibles. Finalmente, encuentras el pincel maestro escondido en una escultura de arcilla.",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/pincel_maestro.jpg",
                 opciones: [
-                    { texto: "Usar la llave para regresar a la realidad.", siguiente: 8 },
-                    { texto: "Quedarte en el mundo virtual. Fin del juego.", siguiente: null }
+                    { texto: "Usar el pincel para regresar a la realidad.", siguiente: 8 },
+                    { texto: "Quedarte en el mundo artístico. Fin del juego.", siguiente: null }
                 ]
             },
             7: {
-                texto: "Te pierdes en el vasto mundo virtual, sin encontrar la llave. Te das cuenta de que quizás deberías haber seguido las pistas más de cerca.",
+                texto: "Te pierdes en los interminables pasillos de la escuela de artes, sin encontrar el pincel maestro. Te das cuenta de que quizás deberías haber seguido las pistas más de cerca.",
                 imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/confusion.jpg",
                 opciones: [
-                    { texto: "Volver al personaje virtual para pedir ayuda.", siguiente: 4 }
+                    { texto: "Volver al instructor para pedir ayuda.", siguiente: 4 }
                 ]
             },
             8: {
-                texto: "Usas la llave y sientes una extraña sensación de vértigo. De repente, te encuentras de vuelta en tu habitación, mirando la pantalla de tu computadora. Pero algo es diferente.",
+                texto: "Usas el pincel maestro y sientes una extraña sensación de vértigo. De repente, te encuentras de vuelta en tu habitación, mirando la pantalla de tu computadora. Pero algo es diferente.",
                 imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/revelacion.jpg",
                 opciones: [
-                    { texto: "Tocar la pantalla para comprobar si es real.", siguiente: 9 },
-                    { texto: "Cerrar la computadora y alejarte, tratando de ignorar esa sensación.", siguiente: 10 }
+                    { texto: "Tocar la pantalla para comprobar si es real. Fin del juego.", siguiente: null },
+                    { texto: "Cerrar la computadora y alejarte. Fin del juego.", siguiente: null }
                 ]
-            },
-            9: {
-                texto: "Al tocar la pantalla, tus dedos atraviesan el cristal. El mundo a tu alrededor comienza a desintegrarse, fusionándose con líneas de código. Ya no sabes qué es real o virtual. Estás atrapado entre dos mundos, sin posibilidad de regresar. Fin del juego.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/realidad_virtual.jpg",
-                opciones: []
-            },
-            10: {
-                texto: "Cierras la computadora y tratas de continuar con tu vida. Sin embargo, todo se siente extraño, como si algo te estuviera observando. Un reflejo en la pantalla parece moverse cuando no lo miras. La realidad y la virtualidad se entrelazan. Fin del juego.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/misterio.jpg",
-                opciones: []
-            },
-            11: {
-                texto: "Miras a tu alrededor, pero no encuentras nada fuera de lo común. Sin embargo, esa sensación de duda persiste. ¿Realmente saliste de ese mundo virtual, o todavía estás atrapado sin saberlo? Fin del juego.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/sospecha.jpg",
-                opciones: []
-            },
-            12: {
-                texto: "Cierras los ojos, respirando profundamente, y te convences de que todo está bien. Pero cada vez que escuchas un sonido o ves un reflejo, te preguntas: ¿es esto la realidad o sólo otra simulación? Fin del juego.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/simulacion.jpg",
-                opciones: []
             }
         };
 
@@ -160,4 +147,5 @@
         }
     </script>
 </body>
+
 </html>
