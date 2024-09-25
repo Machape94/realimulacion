@@ -7,52 +7,111 @@
     <title>Elije tu Realimulación</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
         }
 
         #game-container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        #game-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
         }
 
         #game-image {
-            max-width: 100%;
+            width: 100%;
             height: auto;
-            border-radius: 8px;
+            border-radius: 10px;
             opacity: 1;
             transition: opacity 0.8s ease;
         }
 
         #game-text {
-            margin: 20px 0;
+            margin: 30px 0;
             opacity: 1;
+            font-size: 18px;
+            color: #333;
             transition: opacity 0.8s ease;
         }
 
         button {
-            padding: 10px 20px;
+            padding: 12px 25px;
             margin: 10px;
+            font-size: 16px;
             background-color: #007BFF;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            outline: none;
         }
 
         button:hover {
             background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        button:focus {
+            background-color: #0056b3;
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.7);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        #game-options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Efecto de desvanecimiento de la pantalla */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        .fade {
+            animation: fadeIn 1s ease-in;
+        }
+
+        .fade-out {
+            animation: fadeOut 1s ease-out;
         }
     </style>
 </head>
 
 <body>
-    <div id="game-container">
+    <div id="game-container" class="fade">
         <img id="game-image" src="https://raw.githubusercontent.com/Machape94/realimulacion/main/images/inicio.jpg" alt="Capítulo 1">
         <div id="game-text">
             <p>Te despiertas en tu habitación, pero algo se siente diferente. Al mirar a tu alrededor, notas que tu computadora está encendida y muestra un mensaje parpadeante: “¿Estás listo para la aventura?”</p>
@@ -131,33 +190,34 @@
             }
         };
 
-        // Función para cambiar de capítulo con transición
+        // Función para cambiar de capítulo con transición y animación
         function irACapitulo(numeroCapitulo) {
             const capitulo = capitulos[numeroCapitulo];
 
             if (capitulo) {
                 // Apagar el contenido actual
-                document.getElementById('game-text').style.opacity = 0;
-                document.getElementById('game-image').style.opacity = 0;
+                document.getElementById('game-text').classList.add('fade-out');
+                document.getElementById('game-image').classList.add('fade-out');
 
                 setTimeout(() => {
-                    // Cambiar el contenido una vez que la opacidad es 0
+                    // Cambiar el contenido una vez que la opacidad llega a 0
+                    document.getElementById('game-text').classList.remove('fade-out');
+                    document.getElementById('game-image').classList.remove('fade-out');
+
+                    // Cambiar el texto y la imagen del capítulo
                     document.getElementById('game-text').innerHTML = `<p>${capitulo.texto}</p>`;
                     document.getElementById('game-image').src = capitulo.imagen;
 
-                    const opcionesHTML = capitulo.opciones.map(opcion => {
-                        return `<button onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`;
-                    }).join('');
-
+                    // Actualizar las opciones del capítulo
+                    const opcionesHTML = capitulo.opciones.map(opcion =>
+                        `<button onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`
+                    ).join('');
                     document.getElementById('game-options').innerHTML = opcionesHTML;
 
-                    // Encender el contenido con la nueva opacidad
-                    document.getElementById('game-text').style.opacity = 1;
-                    document.getElementById('game-image').style.opacity = 1;
-                }, 800); // Espera a que la opacidad llegue a 0 antes de cambiar
-            } else {
-                document.getElementById('game-text').innerHTML = "<p>Fin del juego.</p>";
-                document.getElementById('game-options').innerHTML = "";
+                    // Efecto fade-in para el nuevo contenido
+                    document.getElementById('game-text').classList.add('fade');
+                    document.getElementById('game-image').classList.add('fade');
+                }, 500); // Tiempo de espera antes de cambiar el contenido (coincide con la duración de la animación fade-out)
             }
         }
     </script>
