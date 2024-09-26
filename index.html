@@ -1,124 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elije tu Realimulación</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
+            background-color: #f4f4f4;
         }
-
         #game-container {
-            max-width: 700px;
-            margin: 50px auto;
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
-
         #game-container:hover {
             transform: scale(1.02);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
         }
-
         #game-image {
-            width: 100%;
+            max-width: 100%;
             height: auto;
-            border-radius: 10px;
-            opacity: 1;
-            transition: opacity 0.8s ease;
+            border-radius: 8px;
         }
-
         #game-text {
-            margin: 30px 0;
-            opacity: 1;
-            font-size: 18px;
-            color: #333;
-            transition: opacity 0.8s ease;
+            margin: 20px 0;
         }
-
         button {
-            padding: 12px 25px;
+            padding: 12px 24px;
             margin: 10px;
-            font-size: 16px;
-            background-color: #007BFF;
+            background-color: #ff6600;
             color: white;
             border: none;
-            border-radius: 50px;
+            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            outline: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
-
         button:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
+            background-color: #e65c00;
+            transform: scale(1.05);
         }
-
-        button:focus {
-            background-color: #0056b3;
-            outline: none;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.7);
-        }
-
         button:active {
-            transform: translateY(0);
-            box-shadow: none;
+            transform: scale(0.98);
         }
-
-        #game-options {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Efecto de desvanecimiento de la pantalla */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeOut {
-            from {
-                opacity: 1;
-            }
-            to {
-                opacity: 0;
-            }
-        }
-
         .fade {
-            animation: fadeIn 1s ease-in;
+            opacity: 1;
+            transition: opacity 0.5s ease-in;
         }
-
         .fade-out {
-            animation: fadeOut 1s ease-out;
+            opacity: 0;
         }
     </style>
 </head>
-
 <body>
-    <div id="game-container" class="fade">
+    <div id="game-container">
         <img id="game-image" src="https://raw.githubusercontent.com/Machape94/realimulacion/main/images/inicio.jpg" alt="Capítulo 1">
         <div id="game-text">
-            <p>Te despiertas en tu habitación, pero algo se siente diferente. Al mirar a tu alrededor, notas que tu computadora está encendida y muestra un mensaje parpadeante: “¿Estás listo para la aventura?”</p>
+            <p>Morhdhy MapaHood: Has ingresado al link de un minijuego pasado por un machape. Completarlo debería llevarte solo unos segundos.</p>
         </div>
         <div id="game-options">
-            <button onclick="irACapitulo(2)">1. Aceptar la invitación y hacer clic en el mensaje.</button>
-            <button onclick="irACapitulo(3)">2. Ignorar el mensaje y salir de la habitación.</button>
+            <button onclick="irACapitulo(2)">1. No, gracias (decides recorrer por tu cuenta el lugar).</button>
+            <button onclick="irACapitulo(3)">2. Por supuesto! (Sigues al mapache).</button>
         </div>
     </div>
 
@@ -126,101 +73,114 @@
         // Estructura de capítulos del juego
         const capitulos = {
             1: {
-                texto: "Te despiertas en tu habitación, pero algo se siente diferente. Al mirar a tu alrededor, notas que tu computadora está encendida y muestra un mensaje parpadeante: “¿Estás listo para la aventura?”",
+                texto: "Morhdhy MapaHood: Has ingresado al link de un minijuego pasado por un machape. Completarlo debería llevarte solo unos segundos.",
                 imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/inicio.jpg",
                 opciones: [
-                    { texto: "Aceptar la invitación y hacer clic en el mensaje.", siguiente: 2 },
-                    { texto: "Ignorar el mensaje y salir de la habitación.", siguiente: 3 }
+                    { texto: "No, gracias (decides recorrer por tu cuenta el lugar).", siguiente: 2 },
+                    { texto: "Por supuesto! (Sigues al mapache).", siguiente: 3 }
                 ]
             },
             2: {
-                texto: "De repente, te encuentras en una escuela de artes visuales. Los pasillos están llenos de obras creativas y estudiantes trabajando. Un instructor virtual se te acerca y te dice: “Bienvenido. Tu misión es encontrar el pincel maestro que puede dibujar la línea entre la realidad y la imaginación.”",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/escuela_arte.jpg",
+                texto: "Te alejas del grupo y comienzas a caminar por los laberínticos pasillos de la EPAV, observando las paredes cubiertas de cuadros que parecen crecer en tamaño.",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/laberintos.jpg",
                 opciones: [
-                    { texto: "Preguntar al instructor dónde encontrar el pincel maestro.", siguiente: 4 },
-                    { texto: "Explorar la escuela por tu cuenta.", siguiente: 5 }
+                    { texto: "Seguir explorando.", siguiente: 4 },
+                    { texto: "Regresar al punto de partida.", siguiente: 3 }
                 ]
             },
             3: {
-                texto: "Decides ignorar el mensaje y salir de tu habitación. Afuera, todo parece normal, pero sientes una extraña desconexión con tu entorno. Te preguntas si deberías haber aceptado la invitación.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/realidad.jpg",
+                texto: "Eres guiado entre los pasillos hasta detenerte en una sala de exposición. El mapache te advierte: 'No te quedes mucho tiempo observando las obras. Los elementos en ellas pueden... alterar tu mente.'",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/exposicion.jpg",
                 opciones: [
-                    { texto: "Volver a tu habitación y hacer clic en el mensaje.", siguiente: 2 },
-                    { texto: "Continuar con tu día como de costumbre. Fin del juego.", siguiente: null }
+                    { texto: "Pedir continuar el recorrido.", siguiente: 5 },
+                    { texto: "Quedarte a observar las obras más de cerca.", siguiente: 6 }
                 ]
             },
             4: {
-                texto: "El instructor te dice que el pincel maestro está escondido en el estudio de arte experimental, un lugar donde las barreras entre la creatividad y la realidad se desvanecen.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/estudio_arte.jpg",
+                texto: "Encuentras una escalera que desciende a la oscuridad. El ambiente se vuelve más frío mientras oyes el suave sonido del agua corriendo.",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/escalera.jpg",
                 opciones: [
-                    { texto: "Ir al estudio de arte experimental.", siguiente: 6 },
-                    { texto: "Buscar pistas en otro lugar de la escuela.", siguiente: 7 }
+                    { texto: "Bajar por la escalera.", siguiente: 7 },
+                    { texto: "Buscar otra ruta.", siguiente: 3 }
                 ]
             },
             5: {
-                texto: "Decides explorar la escuela por tu cuenta. Encuentras varios materiales interesantes, pero ninguno parece ser el pincel maestro. Sin embargo, descubres un boceto que podría ayudarte.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/exploracion.jpg",
+                texto: "Bajas las escaleras guiado por el mapache hasta una sala sumergida en completa oscuridad. 'Quédate aquí, iré a prender las luces,' dice mientras se aleja.",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/oscuridad.jpg",
                 opciones: [
-                    { texto: "Seguir las pistas del boceto.", siguiente: 6 },
-                    { texto: "Ignorar el boceto y seguir explorando.", siguiente: 7 }
+                    { texto: "Esperar en tu lugar.", siguiente: 8 },
+                    { texto: "Explorar por tu cuenta.", siguiente: 9 }
                 ]
             },
             6: {
-                texto: "En el estudio de arte experimental, te enfrentas a visiones de tus propias creaciones y futuros posibles. Finalmente, encuentras el pincel maestro escondido en una escultura de arcilla.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/pincel_maestro.jpg",
+                texto: "Te quedas viendo los cuadros y todo empieza a verse psicodélico. La pantalla se pone en blanco y de repente te encuentras de nuevo en la sala N°5.",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/psicodelico.jpg",
                 opciones: [
-                    { texto: "Usar el pincel para regresar a la realidad.", siguiente: 8 },
-                    { texto: "Quedarte en el mundo artístico. Fin del juego.", siguiente: null }
+                    { texto: "Fin del juego.", siguiente: null }
                 ]
             },
             7: {
-                texto: "Te pierdes en los interminables pasillos de la escuela de artes, sin encontrar el pincel maestro. Te das cuenta de que quizás deberías haber seguido las pistas más de cerca.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/confusion.jpg",
+                texto: "Desciendes por la escalera y te encuentras en una sala llena de esculturas humanoides, rodeado por unos centímetros de agua. El mapache ha desaparecido, pero puedes escuchar su voz.",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/esculturas.jpg",
                 opciones: [
-                    { texto: "Volver al instructor para pedir ayuda.", siguiente: 4 }
+                    { texto: "Seguir la voz.", siguiente: 10 },
+                    { texto: "Volver por donde viniste.", siguiente: 6 }
                 ]
             },
             8: {
-                texto: "Usas el pincel maestro y sientes una extraña sensación de vértigo. De repente, te encuentras de vuelta en tu habitación, mirando la pantalla de tu computadora. Pero algo es diferente.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/revelacion.jpg",
+                texto: "La luz se enciende de golpe, cegándote momentáneamente. Cuando recuperas la visión, ves que estás rodeado de esculturas humanoides y agua. La voz del mapache resuena: 'Olvidé que esta sala está clausurada. Ven hacia aquí y te mostraré otra salida.'",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/agua.jpg",
                 opciones: [
-                    { texto: "Tocar la pantalla para comprobar si es real. Fin del juego.", siguiente: null },
-                    { texto: "Cerrar la computadora y alejarte. Fin del juego.", siguiente: null }
+                    { texto: "Seguir la voz entre las esculturas.", siguiente: 10 },
+                    { texto: "Salir por la escalera.", siguiente: 6 }
+                ]
+            },
+            9: {
+                texto: "Explorando por tu cuenta, de repente las luces se encienden, cegándote. Has vuelto a la sala N°5, donde tus compañeros están sentados, y la profesora anuncia la entrega de trabajos.",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/sala.jpg",
+                opciones: [
+                    { texto: "Fin del juego.", siguiente: null }
+                ]
+            },
+            10: {
+                texto: "Sigues la voz, pero el ambiente se torna cada vez más inquietante. Finalmente, una luz cegadora te devuelve a la sala N°5, donde te preguntas si todo ha sido real o un extraño sueño.",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/sala_final.jpg",
+                opciones: [
+                    { texto: "Fin del juego.", siguiente: null }
                 ]
             }
         };
 
-        // Función para cambiar de capítulo con transición y animación
+        // Función para cambiar de capítulo con transiciones
         function irACapitulo(numeroCapitulo) {
             const capitulo = capitulos[numeroCapitulo];
 
             if (capitulo) {
-                // Apagar el contenido actual
+                // Transición de salida
                 document.getElementById('game-text').classList.add('fade-out');
                 document.getElementById('game-image').classList.add('fade-out');
 
                 setTimeout(() => {
-                    // Cambiar el contenido una vez que la opacidad llega a 0
+                    // Remover el fade-out para la transición de entrada
                     document.getElementById('game-text').classList.remove('fade-out');
                     document.getElementById('game-image').classList.remove('fade-out');
 
-                    // Cambiar el texto y la imagen del capítulo
+                    // Cambiar texto e imagen
                     document.getElementById('game-text').innerHTML = `<p>${capitulo.texto}</p>`;
                     document.getElementById('game-image').src = capitulo.imagen;
 
-                    // Actualizar las opciones del capítulo
+                    // Actualizar opciones
                     const opcionesHTML = capitulo.opciones.map(opcion =>
                         `<button onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`
                     ).join('');
                     document.getElementById('game-options').innerHTML = opcionesHTML;
 
-                    // Efecto fade-in para el nuevo contenido
+                    // Transición de entrada
                     document.getElementById('game-text').classList.add('fade');
                     document.getElementById('game-image').classList.add('fade');
-                }, 500); // Tiempo de espera antes de cambiar el contenido (coincide con la duración de la animación fade-out)
+                }, 500); // Duración de la transición
             }
         }
     </script>
 </body>
-
 </html>
