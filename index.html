@@ -55,6 +55,38 @@
         .fade-out {
             opacity: 0;
         }
+        .flash-effect {
+            background-color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.1s ease;
+        }
+        .screamer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 20;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+        .screamer img {
+            width: 60%;
+            height: auto;
+        }
+        .show-screamer {
+            display: flex;
+        }
     </style>
 </head>
 <body>
@@ -67,6 +99,14 @@
             <button onclick="irACapitulo(2)">1. No, gracias (decides recorrer por tu cuenta el lugar).</button>
             <button onclick="irACapitulo(3)">2. Por supuesto! (Sigues al mapache).</button>
         </div>
+    </div>
+
+    <!-- Flash effect div for light blinding transitions -->
+    <div id="flash-effect" class="flash-effect"></div>
+    
+    <!-- Screamer div for scary moment -->
+    <div id="screamer" class="screamer">
+        <img src="https://raw.githubusercontent.com/Machape94/realimulacion/main/images/screamer.jpg" alt="Screamer">
     </div>
 
     <script>
@@ -143,44 +183,75 @@
                 ]
             },
             10: {
-                texto: "Sigues la voz, pero el ambiente se torna cada vez más inquietante. Finalmente, una luz cegadora te devuelve a la sala N°5, donde te preguntas si todo ha sido real o un extraño sueño.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/sala_final.jpg",
+                texto: "Sigues la voz, pero el ambiente se torna cada vez más inquietante. Finalmente, llegas a una puerta que parece prometer tu salida...",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/main/images/puerta.jpg",
                 opciones: [
                     { texto: "Fin del juego.", siguiente: null }
                 ]
             }
         };
 
-        // Función para cambiar de capítulo con transiciones
-        function irACapitulo(numeroCapitulo) {
-            const capitulo = capitulos[numeroCapitulo];
+        // Mostrar contenido del capítulo actual
+        function mostrarCapitulo(capitulo) {
+            const container = document.getElementById('game-container');
+            const texto = document.getElementById('game-text');
+            const imagen = document.getElementById('game-image');
+            const opcionesDiv = document.getElementById('game-options');
 
-            if (capitulo) {
-                // Transición de salida
-                document.getElementById('game-text').classList.add('fade-out');
-                document.getElementById('game-image').classList.add('fade-out');
+            // Cambiar el texto y la imagen
+            texto.innerHTML = `<p>${capitulo.texto}</p>`;
+            imagen.src = capitulo.imagen;
 
-                setTimeout(() => {
-                    // Remover el fade-out para la transición de entrada
-                    document.getElementById('game-text').classList.remove('fade-out');
-                    document.getElementById('game-image').classList.remove('fade-out');
+            // Limpiar opciones anteriores
+            opcionesDiv.innerHTML = '';
 
-                    // Cambiar texto e imagen
-                    document.getElementById('game-text').innerHTML = `<p>${capitulo.texto}</p>`;
-                    document.getElementById('game-image').src = capitulo.imagen;
-
-                    // Actualizar opciones
-                    const opcionesHTML = capitulo.opciones.map(opcion =>
-                        `<button onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`
-                    ).join('');
-                    document.getElementById('game-options').innerHTML = opcionesHTML;
-
-                    // Transición de entrada
-                    document.getElementById('game-text').classList.add('fade');
-                    document.getElementById('game-image').classList.add('fade');
-                }, 500); // Duración de la transición
+            // Mostrar nuevas opciones
+            if (capitulo.opciones) {
+                capitulo.opciones.forEach(opcion => {
+                    const button = document.createElement('button');
+                    button.innerText = opcion.texto;
+                    button.onclick = () => irACapitulo(opcion.siguiente);
+                    opcionesDiv.appendChild(button);
+                });
             }
         }
+
+        // Función para transiciones entre capítulos
+        function irACapitulo(numero) {
+            const container = document.getElementById('game-container');
+            const flash = document.getElementById('flash-effect');
+            const screamer = document.getElementById('screamer');
+
+            // Transición con luz cegadora en capítulos 5 y 9
+            if (numero === 8 || numero === 9) {
+                flash.style.opacity = 1;
+                setTimeout(() => {
+                    flash.style.opacity = 0;
+                }, 500);
+            }
+
+            // Mostrar screamer en capítulo 8
+            if (numero === 8) {
+                setTimeout(() => {
+                    screamer.classList.add('show-screamer');
+                }, 1000);
+                setTimeout(() => {
+                    screamer.classList.remove('show-screamer');
+                }, 3000);
+            }
+
+            // Transición suave entre capítulos
+            container.classList.add('fade-out');
+            setTimeout(() => {
+                mostrarCapitulo(capitulos[numero]);
+                container.classList.remove('fade-out');
+                container.classList.add('fade');
+                setTimeout(() => container.classList.remove('fade'), 500);
+            }, 500); // Duración de la transición
+        }
+
+        // Inicializar en el capítulo 1
+        mostrarCapitulo(capitulos[1]);
     </script>
 </body>
 </html>
