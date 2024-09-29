@@ -200,7 +200,8 @@
 
             // Cambiar el texto y la imagen
             texto.innerHTML = `<p>${capitulo.texto}</p>`;
-            imagen.src = capitulo.imagen;
+            console.log("Imagen actual:", capitulo.imagen); // Para depuración
+            imagen.src = capitulo.imagen + '?' + new Date().getTime(); // Forzar refresco de imagen
 
             // Limpiar opciones anteriores
             opcionesDiv.innerHTML = '';
@@ -216,41 +217,17 @@
             }
         }
 
-        // Función para transiciones entre capítulos
-        function irACapitulo(numero) {
-            const container = document.getElementById('game-container');
-            const flash = document.getElementById('flash-effect');
-            const screamer = document.getElementById('screamer');
-
-            // Transición con luz cegadora en capítulos 5 y 9
-            if (numero === 8 || numero === 9) {
-                flash.style.opacity = 1;
-                setTimeout(() => {
-                    flash.style.opacity = 0;
-                }, 500);
+        // Ir al capítulo especificado
+        function irACapitulo(numeroCapitulo) {
+            const capitulo = capitulos[numeroCapitulo];
+            if (capitulo) {
+                mostrarCapitulo(capitulo);
+            } else {
+                console.log("Fin del juego o capítulo no encontrado.");
             }
-
-            // Mostrar screamer en capítulo 8
-            if (numero === 8) {
-                setTimeout(() => {
-                    screamer.classList.add('show-screamer');
-                }, 1000);
-                setTimeout(() => {
-                    screamer.classList.remove('show-screamer');
-                }, 3000);
-            }
-
-            // Transición suave entre capítulos
-            container.classList.add('fade-out');
-            setTimeout(() => {
-                mostrarCapitulo(capitulos[numero]);
-                container.classList.remove('fade-out');
-                container.classList.add('fade');
-                setTimeout(() => container.classList.remove('fade'), 500);
-            }, 500); // Duración de la transición
         }
 
-        // Inicializar en el capítulo 1
+        // Iniciar con el capítulo 1
         mostrarCapitulo(capitulos[1]);
     </script>
 </body>
