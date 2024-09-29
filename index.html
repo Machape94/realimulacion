@@ -238,15 +238,18 @@
             if (currentCapitulo === 6) {
                 texto.innerHTML = `<div class="psychedelic">${capitulo.texto}</div>`;
                 imagen.src = capitulo.imagen;
-                opciones.innerHTML = capitulo.opciones.map(opcion => `<button class="psychedelic" onclick="irACapitulo(opcion.siguiente)">${opcion.texto}</button>`).join('');
+                opciones.innerHTML = capitulo.opciones.map(opcion => 
+                    `<button class="psychedelic" onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`
+                ).join('');
             } else {
                 texto.textContent = capitulo.texto;
                 imagen.src = capitulo.imagen;
-                opciones.innerHTML = capitulo.opciones.map(opcion => `<button onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`).join('');
+                opciones.innerHTML = capitulo.opciones.map(opcion => 
+                    `<button onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`
+                ).join('');
             }
         }
 
-        // Inicializar el juego
         mostrarCapitulo();
     </script>
 </body>
