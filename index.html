@@ -87,6 +87,23 @@
         .show-screamer {
             display: flex;
         }
+        .psychedelic {
+            font-size: 1.2rem; /* Ajustar el tamaño del texto para los botones */
+            font-weight: bold;
+            color: white;
+            animation: colors 2s infinite, rotate 10s infinite linear;
+        }
+        @keyframes colors {
+            0% { color: red; }
+            25% { color: yellow; }
+            50% { color: green; }
+            75% { color: blue; }
+            100% { color: purple; }
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -96,8 +113,8 @@
             <p>Has ingresado al link de un minijuego pasado por un machape. Completarlo debería llevarte solo unos segundos.</p>
         </div>
         <div id="game-options">
-            <button onclick="irACapitulo(2)">1. No, gracias (decides recorrer por tu cuenta el lugar).</button>
-            <button onclick="irACapitulo(3)">2. Por supuesto! (Sigues al mapache).</button>
+            <button class="psychedelic" onclick="irACapitulo(2)">1. No, gracias (decides recorrer por tu cuenta el lugar).</button>
+            <button class="psychedelic" onclick="irACapitulo(3)">2. Por supuesto! (Sigues al mapache).</button>
         </div>
     </div>
 
@@ -153,10 +170,11 @@
                 ]
             },
             6: {
-                texto: "Te quedas viendo los cuadros y todo empieza a verse psicodélico. La pantalla se pone en blanco y de repente te encuentras de nuevo en la sala N°5.",
+                texto: "Te quedas viendo los cuadros y todo empieza a verse psicodélico. La pantalla se pone en blanco y de repente te encuentras de nuevo en la sala N°5. Pierdes cordura y vuelves a las escaleras.",
                 imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/psicodelico.jpg",
                 opciones: [
-                    { texto: "Fin del juego.", siguiente: null }
+                    { texto: "Volver a las escaleras.", siguiente: 5 },
+                    { texto: "Iniciar de nuevo.", siguiente: 1 }
                 ]
             },
             7: {
@@ -176,80 +194,77 @@
                 ]
             },
             9: {
-                texto: "Explorando por tu cuenta, de repente las luces se encienden, cegándote. Has vuelto a la sala N°5, donde tus compañeros están sentados, y la profesora anuncia la entrega de trabajos.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/sala.jpg",
+                texto: "Explorando por tu cuenta, de repente las luces se encienden, cegándote. Has vuelto a la sala N°5, donde tus compañeros están sentados, y la profesora anuncia la entrega de trabajos. Has perdido cordura, quedarás con la duda de si fue real.",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/fin.jpg",
                 opciones: [
-                    { texto: "Fin del juego.", siguiente: null }
+                    { texto: "Iniciar de nuevo.", siguiente: 1 }
                 ]
             },
             10: {
-                texto: "Sigues la voz, pero el ambiente se torna cada vez más inquietante. Finalmente, llegas a una puerta que parece prometer tu salida...",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/puerta.jpg",
+                texto: "Te acercas y la figura se vuelve un mapache que te lleva de vuelta al principio. 'El juego ha terminado.'",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/mapache.jpg",
                 opciones: [
-                    { texto: "Fin del juego.", siguiente: null }
+                    { texto: "Iniciar de nuevo.", siguiente: 1 }
                 ]
             }
         };
 
-        // Mostrar contenido del capítulo actual
-        function mostrarCapitulo(capitulo) {
-            const container = document.getElementById('game-container');
-            const texto = document.getElementById('game-text');
-            const imagen = document.getElementById('game-image');
-            const opcionesDiv = document.getElementById('game-options');
+        let currentCapitulo = 1;
 
-            texto.innerHTML = `<p>${capitulo.texto}</p>`;
-            imagen.src = capitulo.imagen;
-
-            opcionesDiv.innerHTML = '';
-            if (capitulo.opciones) {
-                capitulo.opciones.forEach(opcion => {
-                    const boton = document.createElement('button');
-                    boton.textContent = opcion.texto;
-                    boton.onclick = () => irACapitulo(opcion.siguiente);
-                    opcionesDiv.appendChild(boton);
-                });
-            }
+        function irACapitulo(capitulo) {
+            currentCapitulo = capitulo;
+            mostrarCapitulo();
         }
 
-        // Cambiar de capítulo con efectos
-        function irACapitulo(numero) {
-            const container = document.getElementById('game-container');
-            const flash = document.getElementById('flash-effect');
-            const screamer = document.getElementById('screamer');
+        function mostrarCapitulo() {
+            const capitulo = capitulos[currentCapitulo];
+            const image = document.getElementById('game-image');
+            const text = document.getElementById('game-text');
+            const options = document.getElementById('game-options');
 
-            // Transición con luz cegadora en capítulos específicos
-            if (numero === 8 || numero === 9) {
-                // Mostrar el flash de pantalla blanca
-                flash.style.opacity = 1;
-                setTimeout(() => {
-                    flash.style.opacity = 0;
-                }, 500); // Mantiene el flash durante 500ms
-            }
+            // Limpiar opciones anteriores
+            options.innerHTML = '';
 
-            // Mostrar screamer solo en el capítulo 8
-            if (numero === 8) {
-                setTimeout(() => {
-                    screamer.classList.add('show-screamer');
-                }, 1000); // Espera 1 segundo antes de mostrar el screamer
-
-                setTimeout(() => {
-                    screamer.classList.remove('show-screamer');
-                }, 4000); // Oculta el screamer después de 3 segundos
-            }
-
-            // Transición suave entre capítulos
-            container.classList.add('fade-out');
+            // Aplicar efecto flash
+            const flashEffect = document.getElementById('flash-effect');
+            flashEffect.style.opacity = '1';
             setTimeout(() => {
-                mostrarCapitulo(capitulos[numero]);
-                container.classList.remove('fade-out');
-                container.classList.add('fade');
-                setTimeout(() => container.classList.remove('fade'), 500);
-            }, 500); // Duración de la transición
+                flashEffect.style.opacity = '0';
+            }, 100);
+
+            // Mostrar la imagen y texto del capítulo
+            image.src = capitulo.imagen;
+            text.innerHTML = `<p>${capitulo.texto}</p>`;
+
+            // Crear botones para las opciones
+            capitulo.opciones.forEach(opcion => {
+                const button = document.createElement('button');
+                button.innerHTML = opcion.texto;
+                button.classList.add('psychedelic'); // Agregar clase de efecto psicodélico
+                button.onclick = () => {
+                    if (currentCapitulo === 6) {
+                        mostrarScreamer();
+                    } else {
+                        irACapitulo(opcion.siguiente);
+                    }
+                };
+                options.appendChild(button);
+            });
+        }
+
+        function mostrarScreamer() {
+            const screamerDiv = document.getElementById('screamer');
+            screamerDiv.classList.add('show-screamer');
+
+            // Ocultar screamer después de 1 segundo
+            setTimeout(() => {
+                screamerDiv.classList.remove('show-screamer');
+                irACapitulo(6); // Ir al capítulo 6 después del screamer
+            }, 1000);
         }
 
         // Inicializar el juego
-        mostrarCapitulo(capitulos[1]);
+        mostrarCapitulo();
     </script>
 </body>
 </html>
