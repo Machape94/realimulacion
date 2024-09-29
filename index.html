@@ -220,17 +220,17 @@
             const imagen = document.getElementById("game-image");
             const texto = document.getElementById("game-text");
             const opciones = document.getElementById("game-options");
+            const flashEffect = document.getElementById("flash-effect");
+            const screamer = document.getElementById("screamer");
 
-            // Añadiendo efecto flash
+            // Añadiendo efecto flash y screamer en el capítulo 6
             if (currentCapitulo === 6) {
-                const flashEffect = document.getElementById("flash-effect");
                 flashEffect.style.opacity = "1";
                 setTimeout(() => {
                     flashEffect.style.opacity = "0";
                 }, 100);
                 
                 // Mostrar screamer en el capítulo 6
-                const screamer = document.getElementById("screamer");
                 screamer.classList.add("show-screamer");
                 setTimeout(() => {
                     screamer.classList.remove("show-screamer");
