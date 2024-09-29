@@ -198,36 +198,57 @@
             const imagen = document.getElementById('game-image');
             const opcionesDiv = document.getElementById('game-options');
 
-            // Cambiar el texto y la imagen
             texto.innerHTML = `<p>${capitulo.texto}</p>`;
-            console.log("Imagen actual:", capitulo.imagen); // Para depuración
-            imagen.src = capitulo.imagen + '?' + new Date().getTime(); // Forzar refresco de imagen
+            imagen.src = capitulo.imagen;
 
-            // Limpiar opciones anteriores
             opcionesDiv.innerHTML = '';
-
-            // Mostrar nuevas opciones
             if (capitulo.opciones) {
                 capitulo.opciones.forEach(opcion => {
-                    const button = document.createElement('button');
-                    button.innerText = opcion.texto;
-                    button.onclick = () => irACapitulo(opcion.siguiente);
-                    opcionesDiv.appendChild(button);
+                    const boton = document.createElement('button');
+                    boton.textContent = opcion.texto;
+                    boton.onclick = () => irACapitulo(opcion.siguiente);
+                    opcionesDiv.appendChild(boton);
                 });
             }
         }
 
-        // Ir al capítulo especificado
-        function irACapitulo(numeroCapitulo) {
-            const capitulo = capitulos[numeroCapitulo];
-            if (capitulo) {
-                mostrarCapitulo(capitulo);
-            } else {
-                console.log("Fin del juego o capítulo no encontrado.");
+        // Cambiar de capítulo con efectos
+        function irACapitulo(numero) {
+            const container = document.getElementById('game-container');
+            const flash = document.getElementById('flash-effect');
+            const screamer = document.getElementById('screamer');
+
+            // Transición con luz cegadora en capítulos específicos
+            if (numero === 8 || numero === 9) {
+                // Mostrar el flash de pantalla blanca
+                flash.style.opacity = 1;
+                setTimeout(() => {
+                    flash.style.opacity = 0;
+                }, 500); // Mantiene el flash durante 500ms
             }
+
+            // Mostrar screamer solo en el capítulo 8
+            if (numero === 8) {
+                setTimeout(() => {
+                    screamer.classList.add('show-screamer');
+                }, 1000); // Espera 1 segundo antes de mostrar el screamer
+
+                setTimeout(() => {
+                    screamer.classList.remove('show-screamer');
+                }, 4000); // Oculta el screamer después de 3 segundos
+            }
+
+            // Transición suave entre capítulos
+            container.classList.add('fade-out');
+            setTimeout(() => {
+                mostrarCapitulo(capitulos[numero]);
+                container.classList.remove('fade-out');
+                container.classList.add('fade');
+                setTimeout(() => container.classList.remove('fade'), 500);
+            }, 500); // Duración de la transición
         }
 
-        // Iniciar con el capítulo 1
+        // Inicializar el juego
         mostrarCapitulo(capitulos[1]);
     </script>
 </body>
