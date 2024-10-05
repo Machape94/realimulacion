@@ -17,23 +17,22 @@
             background-color: #150e17;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        #game-container:hover {
-            transform: scale(1.02);
         }
         #game-image {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
+            opacity: 1;
             transition: opacity 1s ease; /* Transición suave de opacidad */
         }
         #game-text {
             margin: 20px 0;
             color: #f0f0f0; /* Gris claro */
+            opacity: 1;
             transition: opacity 1s ease; /* Transición suave de opacidad */
         }
         #game-options {
+            opacity: 1;
             transition: opacity 1s ease; /* Transición suave de opacidad */
         }
         button {
@@ -54,45 +53,7 @@
         button:active {
             transform: scale(0.98);
         }
-        .fade {
-            opacity: 1;
-            transition: opacity 1s ease;
-        }
-        .fade-out {
-            opacity: 0;
-        }
-        .flash-effect {
-            background-color: white;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.1s ease;
-        }
-        .screamer {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: black;
-            z-index: 20;
-            justify-content: center;
-            align-items: center;
-            pointer-events: none;
-        }
-        .screamer img {
-            width: 60%;
-            height: auto;
-        }
-        .show-screamer {
-            display: flex;
-        }
+        /* Efecto psicodélico */
         .psychedelic {
             font-size: 1.2rem;
             font-weight: bold;
@@ -118,6 +79,14 @@
             75% { border-color: blue; }
             100% { border-color: purple; }
         }
+        /* Clase para ocultar el contenido */
+        .fade-out {
+            opacity: 0;
+        }
+        /* Clase para mostrar el contenido */
+        .fade-in {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -130,14 +99,6 @@
             <button onclick="irACapitulo(2)">1. No, gracias (decides recorrer por tu cuenta el lugar).</button>
             <button onclick="irACapitulo(3)">2. Por supuesto! (Sigues al mapache).</button>
         </div>
-    </div>
-
-    <!-- Flash effect div for light blinding transitions -->
-    <div id="flash-effect" class="flash-effect"></div>
-    
-    <!-- Screamer div for scary moment -->
-    <div id="screamer" class="screamer">
-        <img src="https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/screamer.jpg" alt="Screamer">
     </div>
 
     <script>
@@ -188,36 +149,35 @@
                 opciones: [
                     { texto: "Iniciar de nuevo.", siguiente: 1 }
                 ]
-            },
-            7: {
-                texto: "Desciendes por la escalera y te encuentras en una sala llena de esculturas humanoides, rodeado por unos centímetros de agua. El mapache ha desaparecido, pero puedes escuchar su voz.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/esculturas.jpg",
-                opciones: [
-                    { texto: "Seguir la voz.", siguiente: 10 },
-                    { texto: "Volver por donde viniste.", siguiente: 6 }
-                ]
-            },
-            8: {
-                texto: "La luz se enciende de golpe, cegándote momentáneamente. Cuando recuperas la vista, el mapache está allí, sonriendo.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/encender-luces.jpg",
-                opciones: [
-                    { texto: "Preguntar sobre el lugar.", siguiente: 11 },
-                    { texto: "Seguir adelante sin más preguntas.", siguiente: 12 }
-                ]
             }
         };
 
         let currentCapitulo = 1;
 
         function irACapitulo(siguienteCapitulo) {
-            const container = document.getElementById('game-container');
-            container.classList.add('fade-out');
+            // Obtener los elementos
+            const imagen = document.getElementById('game-image');
+            const texto = document.getElementById('game-text');
+            const opciones = document.getElementById('game-options');
 
+            // Aplicar la clase fade-out a todos los elementos
+            imagen.classList.add('fade-out');
+            texto.classList.add('fade-out');
+            opciones.classList.add('fade-out');
+
+            // Esperar hasta que la transición termine (1 segundo)
             setTimeout(() => {
                 currentCapitulo = siguienteCapitulo;
                 mostrarCapitulo();
-                container.classList.remove('fade-out');
-            }, 1000); // Esperar 1 segundo para la transición
+
+                // Aplicar fade-in a los elementos tras cambiar de contenido
+                imagen.classList.remove('fade-out');
+                texto.classList.remove('fade-out');
+                opciones.classList.remove('fade-out');
+                imagen.classList.add('fade-in');
+                texto.classList.add('fade-in');
+                opciones.classList.add('fade-in');
+            }, 1000); // Esperar 1 segundo
         }
 
         function mostrarCapitulo() {
@@ -225,22 +185,13 @@
             const imagen = document.getElementById("game-image");
             const texto = document.getElementById("game-text");
             const opciones = document.getElementById("game-options");
-            const flashEffect = document.getElementById("flash-effect");
-            const screamer = document.getElementById("screamer");
 
-            // Añadir efecto flash y screamer en el capítulo 6
-            if (currentCapitulo === 6) {
-                flashEffect.style.opacity = "1";
-                setTimeout(() => {
-                    flashEffect.style.opacity = "0";
-                }, 100);
-                
-                // Mostrar screamer en el capítulo 6
-                screamer.classList.add("show-screamer");
-                setTimeout(() => {
-                    screamer.classList.remove("show-screamer");
-                }, 2000); // Mostrar screamer por 2 segundos
-            }
+            // Mostrar el nuevo contenido
+            imagen.src = capitulo.imagen;
+            texto.textContent = capitulo.texto;
+            opciones.innerHTML = capitulo.opciones.map(opcion => 
+                `<button onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`
+            ).join('');
 
             // Comprobar si es el capítulo 6 para el efecto psicodélico
             if (currentCapitulo === 6) {
@@ -251,12 +202,7 @@
                     `<button class="psychedelic" onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`
                 ).join('');
             } else {
-                texto.textContent = capitulo.texto;
-                imagen.src = capitulo.imagen;
-                imagen.classList.remove("psychedelic-border"); // Quitar marco psicodélico si no es el capítulo 6
-                opciones.innerHTML = capitulo.opciones.map(opcion => 
-                    `<button onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`
-                ).join('');
+                imagen.classList.remove("psychedelic-border");
             }
         }
 
