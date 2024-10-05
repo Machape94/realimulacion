@@ -26,10 +26,15 @@
             max-width: 100%;
             height: auto;
             border-radius: 8px;
+            transition: opacity 1s ease; /* Transición suave de opacidad */
         }
         #game-text {
             margin: 20px 0;
             color: #f0f0f0; /* Gris claro */
+            transition: opacity 1s ease; /* Transición suave de opacidad */
+        }
+        #game-options {
+            transition: opacity 1s ease; /* Transición suave de opacidad */
         }
         button {
             padding: 12px 24px;
@@ -51,7 +56,7 @@
         }
         .fade {
             opacity: 1;
-            transition: opacity 0.5s ease-in;
+            transition: opacity 1s ease;
         }
         .fade-out {
             opacity: 0;
@@ -101,6 +106,18 @@
             75% { color: blue; }
             100% { color: purple; }
         }
+        /* Marco psicodélico para la imagen */
+        .psychedelic-border {
+            border: 5px solid red;
+            animation: borderColors 2s infinite;
+        }
+        @keyframes borderColors {
+            0% { border-color: red; }
+            25% { border-color: yellow; }
+            50% { border-color: green; }
+            75% { border-color: blue; }
+            100% { border-color: purple; }
+        }
     </style>
 </head>
 <body>
@@ -124,7 +141,6 @@
     </div>
 
     <script>
-        // Estructura de capítulos del juego
         const capitulos = {
             1: {
                 texto: "Has ingresado al link de un minijuego pasado por un machape. Completarlo debería llevarte solo unos segundos.",
@@ -182,34 +198,26 @@
                 ]
             },
             8: {
-                texto: "La luz se enciende de golpe, cegándote momentáneamente. Cuando recuperas la visión, ves que estás rodeado de esculturas humanoides y agua. La voz del mapache resuena: 'Olvidé que esta sala está clausurada. Ven hacia aquí y te mostraré otra salida.'",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/agua.jpg",
+                texto: "La luz se enciende de golpe, cegándote momentáneamente. Cuando recuperas la vista, el mapache está allí, sonriendo.",
+                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/encender-luces.jpg",
                 opciones: [
-                    { texto: "Seguir la voz entre las esculturas.", siguiente: 10 },
-                    { texto: "Salir por la escalera.", siguiente: 6 }
-                ]
-            },
-            9: {
-                texto: "Explorando por tu cuenta, de repente las luces se encienden, cegándote. Has vuelto a la sala N°5, donde tus compañeros están sentados, y la profesora anuncia la entrega de trabajos. Has perdido cordura, quedarás con la duda de si fue real.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/sala.jpg",
-                opciones: [
-                    { texto: "Iniciar de nuevo.", siguiente: 1 }
-                ]
-            },
-            10: {
-                texto: "La voz te lleva a una sala oscura, y al final del pasillo, ves al mapache. Antes de poder alcanzarlo, el ruido se vuelve ensordecedor y pierdes la razón.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/mapache.jpg",
-                opciones: [
-                    { texto: "Iniciar de nuevo.", siguiente: 1 }
+                    { texto: "Preguntar sobre el lugar.", siguiente: 11 },
+                    { texto: "Seguir adelante sin más preguntas.", siguiente: 12 }
                 ]
             }
         };
 
         let currentCapitulo = 1;
 
-        function irACapitulo(num) {
-            currentCapitulo = num;
-            mostrarCapitulo();
+        function irACapitulo(siguienteCapitulo) {
+            const container = document.getElementById('game-container');
+            container.classList.add('fade-out');
+
+            setTimeout(() => {
+                currentCapitulo = siguienteCapitulo;
+                mostrarCapitulo();
+                container.classList.remove('fade-out');
+            }, 1000); // Esperar 1 segundo para la transición
         }
 
         function mostrarCapitulo() {
@@ -220,7 +228,7 @@
             const flashEffect = document.getElementById("flash-effect");
             const screamer = document.getElementById("screamer");
 
-            // Añadiendo efecto flash y screamer en el capítulo 6
+            // Añadir efecto flash y screamer en el capítulo 6
             if (currentCapitulo === 6) {
                 flashEffect.style.opacity = "1";
                 setTimeout(() => {
@@ -231,19 +239,21 @@
                 screamer.classList.add("show-screamer");
                 setTimeout(() => {
                     screamer.classList.remove("show-screamer");
-                }, 3000); // Muestra el screamer por 3 segundos
+                }, 2000); // Mostrar screamer por 2 segundos
             }
 
-            // Comprobando si es el capítulo 6 para el efecto psicodélico
+            // Comprobar si es el capítulo 6 para el efecto psicodélico
             if (currentCapitulo === 6) {
                 texto.innerHTML = `<div class="psychedelic">${capitulo.texto}</div>`;
                 imagen.src = capitulo.imagen;
+                imagen.classList.add("psychedelic-border"); // Añadir marco psicodélico
                 opciones.innerHTML = capitulo.opciones.map(opcion => 
                     `<button class="psychedelic" onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`
                 ).join('');
             } else {
                 texto.textContent = capitulo.texto;
                 imagen.src = capitulo.imagen;
+                imagen.classList.remove("psychedelic-border"); // Quitar marco psicodélico si no es el capítulo 6
                 opciones.innerHTML = capitulo.opciones.map(opcion => 
                     `<button onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`
                 ).join('');
