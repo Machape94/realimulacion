@@ -98,55 +98,85 @@
     </div>
 
     <script>
-        const capitulos = {
-            1: {
-                texto: "Has ingresado al link de un minijuego pasado por un machape. Completarlo debería llevarte solo unos segundos.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/inicio.jpg",
-                opciones: [
-                    { texto: "No, gracias (decides recorrer por tu cuenta el lugar).", siguiente: 2 },
-                    { texto: "Por supuesto! (Sigues al mapache).", siguiente: 3 }
-                ]
-            },
-            2: {
-                texto: "Te alejas del grupo y comienzas a caminar por los laberínticos pasillos de la EPAV, observando las paredes cubiertas de cuadros que parecen crecer en tamaño.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/laberintos.jpg",
-                opciones: [
-                    { texto: "Seguir explorando.", siguiente: 4 },
-                    { texto: "Regresar al punto de partida.", siguiente: 3 }
-                ]
-            },
-            3: {
-                texto: "Eres guiado entre los pasillos hasta detenerte en una sala de exposición. El mapache te advierte: 'No te quedes mucho tiempo observando las obras. Los elementos en ellas pueden... alterar tu mente.'",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/exposicion.jpg",
-                opciones: [
-                    { texto: "Pedir continuar el recorrido.", siguiente: 5 },
-                    { texto: "Quedarte a observar las obras más de cerca.", siguiente: 6 }
-                ]
-            },
-            4: {
-                texto: "Encuentras una escalera que desciende a la oscuridad. El ambiente se vuelve más frío mientras oyes el suave sonido del agua corriendo.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/escalera.jpg",
-                opciones: [
-                    { texto: "Bajar por la escalera.", siguiente: 7 },
-                    { texto: "Buscar otra ruta.", siguiente: 3 }
-                ]
-            },
-            5: {
-                texto: "Bajas las escaleras guiado por el mapache hasta una sala sumergida en completa oscuridad. 'Quédate aquí, iré a prender las luces,' dice mientras se aleja.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/oscuridad.jpg",
-                opciones: [
-                    { texto: "Esperar en tu lugar.", siguiente: 8 },
-                    { texto: "Explorar por tu cuenta.", siguiente: 9 }
-                ]
-            },
-            6: {
-                texto: "Te quedas viendo los cuadros y todo empieza a verse psicodélico. La pantalla se pone en blanco y de repente pierdes cordura y vuelves a las escaleras.",
-                imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/psicodelico.jpg",
-                opciones: [
-                    { texto: "Iniciar de nuevo.", siguiente: 1 }
-                ]
-            }
-        };
+const capitulos = {
+    1: {
+        texto: "Has ingresado al link de un minijuego pasado por un machape. Completarlo debería llevarte solo unos segundos.",
+        imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/inicio.jpg",
+        opciones: [
+            { texto: "No, gracias (decides recorrer por tu cuenta el lugar).", siguiente: 2 },
+            { texto: "Por supuesto! (Sigues al mapache).", siguiente: 3 }
+        ]
+    },
+    2: {
+        texto: "Te alejas del grupo y comienzas a caminar por los laberínticos pasillos de la EPAV, observando las paredes cubiertas de cuadros que parecen crecer en tamaño.",
+        imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/laberintos.jpg",
+        opciones: [
+            { texto: "Seguir explorando.", siguiente: 4 },
+            { texto: "Regresar al punto de partida.", siguiente: 3 }
+        ]
+    },
+    3: {
+        texto: "Eres guiado entre los pasillos hasta detenerte en una sala de exposición. El mapache te advierte: 'No te quedes mucho tiempo observando las obras. Los elementos en ellas pueden... alterar tu mente.'",
+        imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/exposicion.jpg",
+        opciones: [
+            { texto: "Pedir continuar el recorrido.", siguiente: 5 },
+            { texto: "Quedarte a observar las obras más de cerca.", siguiente: 6 }
+        ]
+    },
+    4: {
+        texto: "Encuentras una escalera que desciende a la oscuridad. El ambiente se vuelve más frío mientras oyes el suave sonido del agua corriendo.",
+        imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/escalera.jpg",
+        opciones: [
+            { texto: "Bajar por la escalera.", siguiente: 7 },
+            { texto: "Buscar otra ruta.", siguiente: 3 }
+        ]
+    },
+    5: {
+        texto: "Bajas las escaleras guiado por el mapache hasta una sala sumergida en completa oscuridad. 'Quédate aquí, iré a prender las luces,' dice mientras se aleja.",
+        imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/oscuridad.jpg",
+        opciones: [
+            { texto: "Esperar en tu lugar.", siguiente: 8 },
+            { texto: "Explorar por tu cuenta.", siguiente: 9 }
+        ]
+    },
+    6: {
+        texto: "Te quedas viendo los cuadros y todo empieza a verse psicodélico. La pantalla se pone en blanco y de repente pierdes cordura y vuelves a las escaleras.",
+        imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/psicodelico.jpg",
+        opciones: [
+            { texto: "Iniciar de nuevo.", siguiente: 1 }
+        ]
+    },
+    7: {
+        texto: "Desciendes por la escalera y te encuentras en una sala llena de esculturas humanoides, rodeado por unos centímetros de agua. El mapache ha desaparecido, pero puedes escuchar su voz.",
+        imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/esculturas.jpg",
+        opciones: [
+            { texto: "Seguir la voz.", siguiente: 10 },
+            { texto: "Volver por donde viniste.", siguiente: 6 }
+        ]
+    },
+    8: {
+        texto: "La luz se enciende de golpe, cegándote momentáneamente. Cuando recuperas la visión, ves que estás rodeado de esculturas humanoides y agua. La voz del mapache resuena: 'Olvidé que esta sala está clausurada. Ven hacia aquí y te mostraré otra salida.'",
+        imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/agua.jpg",
+        opciones: [
+            { texto: "Seguir la voz entre las esculturas.", siguiente: 10 },
+            { texto: "Salir por la escalera.", siguiente: 6 }
+        ]
+    },
+    9: {
+        texto: "Explorando por tu cuenta, de repente las luces se encienden, cegándote. Has vuelto a la sala N°5, donde tus compañeros están sentados, y la profesora anuncia la entrega de trabajos.",
+        imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/sala.jpg",
+        opciones: [
+            { texto: "Fin del juego.", siguiente: null }
+        ]
+    },
+    10: {
+        texto: "Sigues la voz, pero el ambiente se torna cada vez más inquietante. Finalmente, llegas a una puerta que parece prometer tu salida...",
+        imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/puerta.jpg",
+        opciones: [
+            { texto: "Fin del juego.", siguiente: null }
+        ]
+    }
+};
 
         let currentCapitulo = 1;
 
