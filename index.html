@@ -166,74 +166,69 @@ const capitulos = {
         texto: "Explorando por tu cuenta, de repente las luces se encienden, cegándote. Has vuelto a la sala N°5, donde tus compañeros están sentados, y la profesora anuncia la entrega de trabajos.",
         imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/sala.jpg",
         opciones: [
-            { texto: "Fin del juego.", siguiente: null }
+            { texto: "Fin del juego.", siguiente: 11 }
         ]
     },
     10: {
         texto: "Sigues la voz, pero el ambiente se torna cada vez más inquietante. Finalmente, llegas a una puerta que parece prometer tu salida...",
         imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/puerta.jpg",
         opciones: [
-            { texto: "Fin del juego.", siguiente: null }
+            { texto: "Fin del juego.", siguiente: 11 }
+        ]
+    },
+    11: {
+        texto: "¡Gracias por jugar! Estos son los créditos del juego.",
+        imagen: "https://raw.githubusercontent.com/Machape94/realimulacion/gh-pages/images/creditos.jpg",
+        opciones: [
+            { texto: "Volver a empezar", siguiente: 1 },
+            { texto: "Ir a Google", siguiente: 'https://www.google.com' }
         ]
     }
 };
 
-        let currentCapitulo = 1;
+let currentCapitulo = 1;
 
-        function irACapitulo(siguienteCapitulo) {
-            // Obtener los elementos
-            const imagen = document.getElementById('game-image');
-            const texto = document.getElementById('game-text');
-            const opciones = document.getElementById('game-options');
+function irACapitulo(c) {
+    if (typeof c === 'number') {
+        currentCapitulo = c;
+    } else if (typeof c === 'string') {
+        window.open(c, '_blank'); // Abre la URL en una nueva pestaña
+        return; // Sale de la función
+    }
+    
+    // Actualizar la imagen y el texto
+    const capitulo = capitulos[currentCapitulo];
+    document.getElementById("game-image").classList.add("fade-out");
+    document.getElementById("game-text").classList.add("fade-out");
+    document.getElementById("game-options").classList.add("fade-out");
 
-            // Aplicar la clase fade-out a todos los elementos
-            imagen.classList.add('fade-out');
-            texto.classList.add('fade-out');
-            opciones.classList.add('fade-out');
+    setTimeout(() => {
+        document.getElementById("game-image").src = capitulo.imagen;
+        document.getElementById("game-text").innerHTML = `<p>${capitulo.texto}</p>`;
+        
+        // Actualizar botones de opciones
+        const optionsDiv = document.getElementById("game-options");
+        optionsDiv.innerHTML = ""; // Limpiar opciones actuales
+        capitulo.opciones.forEach(opcion => {
+            const button = document.createElement("button");
+            button.innerHTML = opcion.texto;
+            button.onclick = () => irACapitulo(opcion.siguiente);
+            optionsDiv.appendChild(button);
+        });
 
-            // Esperar hasta que la transición termine (1 segundo)
-            setTimeout(() => {
-                currentCapitulo = siguienteCapitulo;
-                mostrarCapitulo();
-            }, 1000); // Esperar 1 segundo
-        }
+        // Remover clases de fade-out y aplicar fade-in
+        document.getElementById("game-image").classList.remove("fade-out");
+        document.getElementById("game-text").classList.remove("fade-out");
+        document.getElementById("game-options").classList.remove("fade-out");
+        document.getElementById("game-image").classList.add("fade-in");
+        document.getElementById("game-text").classList.add("fade-in");
+        document.getElementById("game-options").classList.add("fade-in");
+    }, 500); // Esperar medio segundo para el efecto
+}
 
-        function mostrarCapitulo() {
-            const capitulo = capitulos[currentCapitulo];
-            const imagen = document.getElementById("game-image");
-            const texto = document.getElementById("game-text");
-            const opciones = document.getElementById("game-options");
-
-            // Mostrar el nuevo contenido
-            imagen.src = capitulo.imagen;
-            texto.textContent = capitulo.texto;
-            opciones.innerHTML = capitulo.opciones.map(opcion => 
-                `<button onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`
-            ).join('');
-
-            // Comprobar si es el capítulo 6 para el efecto psicodélico
-            if (currentCapitulo === 6) {
-                texto.innerHTML = `<div class="psychedelic">${capitulo.texto}</div>`;
-                imagen.src = capitulo.imagen;
-                imagen.classList.add("psychedelic-border"); // Añadir marco psicodélico
-                opciones.innerHTML = capitulo.opciones.map(opcion => 
-                    `<button class="psychedelic" onclick="irACapitulo(${opcion.siguiente})">${opcion.texto}</button>`
-                ).join('');
-            }
-
-            // Aplicar la clase fade-in después de que se haya cambiado el contenido
-            imagen.classList.remove('fade-out');
-            texto.classList.remove('fade-out');
-            opciones.classList.remove('fade-out');
-
-            // Aplicar la clase fade-in
-            imagen.classList.add('fade-in');
-            texto.classList.add('fade-in');
-            opciones.classList.add('fade-in');
-        }
-
-        // Mostrar el primer capítulo al cargar
-        mostrarCapitulo();
+document.addEventListener("DOMContentLoaded", () => {
+    irACapitulo(currentCapitulo);
+});
     </script>
 </body>
 </html>
